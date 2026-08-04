@@ -30,13 +30,13 @@ Copy-Item .env.example .env
 npm run dev -- --port 5173
 ```
 
-Local URLs: frontend `http://localhost:5173`, backend `http://localhost:5000`, health `http://localhost:5000/api/health`, version `http://localhost:5000/api/version`.
+Local URLs: frontend `http://localhost:5173`, backend `http://localhost:5000`, health `http://localhost:5000/api/health`, database health `http://localhost:5000/api/health/database`, version `http://localhost:5000/api/version`.
 
 ## Environment variables
 
-Frontend: `VITE_API_URL`, `VITE_WHATSAPP_NUMBER`.
+Frontend: `VITE_API_BASE_URL`, `VITE_WHATSAPP_NUMBER`.
 
-Backend: `PORT`, `MONGODB_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `FRONTEND_URL`, `DEMO_PAYMENT_MODE`.
+Backend: `PORT`, `MONGODB_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `NODE_ENV`, `DEMO_PAYMENT_MODE`.
 
 `.env` is ignored. Commit only `.env.example`.
 
@@ -63,7 +63,7 @@ Configure the frontend project with:
 - Root Directory: `frontend`
 - Build Command: `npm run build`
 - Output Directory: `dist`
-- Environment variable: `VITE_API_URL=https://<your-render-service>/api`
+- Production environment variable: `VITE_API_BASE_URL=https://ecommerce-website-demo.onrender.com`
 
 Set `VITE_WHATSAPP_NUMBER` if the production contact number differs from the demo value. `frontend/vercel.json` provides the SPA fallback required when refreshing nested routes.
 
@@ -74,10 +74,10 @@ Configure the backend web service with:
 - Root Directory: `backend`
 - Build Command: `npm install`
 - Start Command: `npm start`
-- Required environment variables: `MONGODB_URI`, `JWT_SECRET`, `FRONTEND_URL`
-- Optional environment variables: `JWT_EXPIRES_IN`, `DEMO_PAYMENT_MODE`, `PORT`
+- Required environment variables: `MONGODB_URI`, `JWT_SECRET`
+- Optional environment variables: `JWT_EXPIRES_IN`, `DEMO_PAYMENT_MODE`, `NODE_ENV`, `PORT`
 
-Set `FRONTEND_URL` to the deployed Vercel origin. Render supplies `PORT`; the server reads it automatically and falls back to `5000` locally.
+Production CORS is restricted to `https://luma.papputhakur.com` and `https://ecommerce-website-demo-zeta.vercel.app`; local development also allows `http://localhost:5173`. Render supplies `PORT`; the server reads it automatically and falls back to `5000` locally.
 
 ## Routes
 
